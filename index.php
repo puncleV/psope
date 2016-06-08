@@ -12,10 +12,12 @@
 <body>
 <div class="panel-body">
 	<?php
-
-		 include("user.php");
-		//include("admin.php");
-		 echo $_SESSION['group'];
+		include("connect.php");
+		if(isset($_SESSION['group'])){
+			include(  $_SESSION["group"] . "/" . $_SESSION["group"] . ".php");
+		}else{
+			include("login.php");
+		}
 	?>
 	</div>
 </body>

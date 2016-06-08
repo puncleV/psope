@@ -6,8 +6,8 @@
 			<li role="presentation"><a href="#">Квоты <span class="label label-danger">Не осталось</span></a></li>
 		</ul>
 		<?php
-			include("user-history.php");
-			include("user-quotas.php");
+			include("history.php");
+			include("quotas.php");
 		?>
     </div>
 </div>

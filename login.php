@@ -7,7 +7,7 @@
 					include("connect.php");
 					if (isset($_GET['login'])) {
 						$_SESSION['group'] = $_GET['login'];
-						echo $_SESSION['group'];
+						header( 'Location: index.php', true, 301 );
 					}elseif (isset($_GET['logout'])) {
 						session_destroy();
 						header( 'Location: index.php', true, 301 );
