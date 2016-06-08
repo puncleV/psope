@@ -6,16 +6,16 @@
 				<form>
 					<div class="form-group">
 						<label for="aboutInput">Описание документа</label>
-						<textarea id="aboutInput" class="form-control" rows="3"></textarea>
+						<textarea id="aboutInput" class="form-control" rows="3" required></textarea>
 					</div>
 					<div class="form-group">
 						<label for="dateInput">Время печати:</label>
-						<input type="datetime-local" id="dateInput">
+						<input type="datetime-local" id="dateInput" required="true">
 						<p class="help-block">Выберите предпочитаемое время для печати.</p>
 					</div>
 					<div class="form-group">
 						<label for="fileInput">Файл для печати</label>
-						<input type="file" id="fileInput">
+						<input type="file" id="fileInput" required="true">
 						<p class="help-block">Поддерживаемые форматы: ыы ы ы </p>
 					</div>
 					<button type="submit" class="btn btn-default">Загрузить</button>
