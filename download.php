@@ -6,7 +6,7 @@
 				<form method="POST" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="aboutInput">Описание документа</label>
-						<textarea id="aboutInput" class="form-control" rows="3" required name="aboutFile"></textarea>
+						<textarea id="aboutInput" class="form-control" rows="3" required name="fileDescription"></textarea>
 					</div>
 					<div class="form-group">
 						<label for="dateInput">Время печати:</label>

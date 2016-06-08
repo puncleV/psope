@@ -21,6 +21,7 @@
 			    	$_SESSION['id'] = $row [0];
 			    	$_SESSION['fullName'] = $row [1];
 			    	$_SESSION['group'] = $row [2] == 1 ? "admin" : "user";
+			    	$_SESSION['page'] = 0;
 			    }else{
 			     	errMsg("Пароль или адрес неверны");
 			    }

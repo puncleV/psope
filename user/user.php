@@ -7,13 +7,18 @@
 		{
 			$lastId = mysqli_query($idb, "SELECT MAX(`file_id`) FROM `files`");
 			if($lastId){
-				$fileId = $lastId->fetch_row()[0];
-				$uploadfile = $uploaddir .  $_SESSION['id'] . "_" . $fileId . "_" . basename($_FILES['fileName']['name']);
+				$fileId = $lastId->fetch_row()[0] + 1;
 			}else{
-				$uploadfile = $uploaddir .  $_SESSION['id'] . "_" . "1" . "_" . basename($_FILES['fileName']['name']);
+				$fileId = 1;
 			}
-			$insertFile = mysqli_query($idb, "INSERT INTO `files` (file_type, size, path) VALUES ('".$_FILES["fileName"]["type"]."','".$_FILES["fileName"]["size"]."','".$uploadfile."')");
 			
+			$uploadfile = $uploaddir .  $_SESSION['id'] . "_" . $fileId . "_" . basename($_FILES['fileName']['name']);
+			
+
+			$insertFile = mysqli_query($idb, "INSERT INTO `files` (file_type, size, path, description) VALUES ('".$_FILES["fileName"]["type"]."','".$_FILES["fileName"]["size"]."','".$uploadfile."','".$_POST["fileDescription"]."')");
+
+			$insertPrint = mysqli_query($idb, "INSERT INTO `prints` (user_id, desired_time, file_id) VALUES ('".$_SESSION['id']."','".$_POST["dateTime"]."','".$fileId."')");
+
 		 	if(move_uploaded_file($_FILES["fileName"]["tmp_name"], $uploadfile)){
 		 		gracMsg("Файл успешно загружен");
 		 	}
