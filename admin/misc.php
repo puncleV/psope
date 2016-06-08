@@ -1,15 +1,31 @@
 <div class="panel panel-info">
     <div class="panel-heading">Информация о пользователях</div>
     <div class="panel-body">
-    	<ul class="nav nav-tabs">
-			<li role="presentation" class="active"><a href="#">История печати</a></li>
-			<li role="presentation"><a href="#">Запросы на доп.печать <span class="badge">228</span></a></li>
-			<li role="presentation"><a href="#">Результаты поиска</a></li>
-		</ul>
 		<?php
-			include("admin-story.php");
-			include("admin-requests.php");
-			include("admin-search-results.php");
+			if(isset($_GET['page_1']))
+				$_SESSION['page_1'] = $_GET['page_1'];
+			switch ($_SESSION['page_1']) {
+				case 0:
+					$sFile = "history";
+					break;
+				case 1:
+					$sFile = "requests";
+					break;
+				case 2:
+					$sFile = "search/results";
+					break;
+				default:
+					$sFile = "history";
+					break;
+			}
+
+			echo '<ul class="nav nav-tabs">';
+			echo '<li role="presentation" class="' . ($_SESSION['page_1'] == 0 ? "active" : "") .'"><a href="index.php?&page_1=0">История печати</a></li>';
+			echo '<li role="presentation" class="' . ($_SESSION['page_1'] == 1 ? "active" : "") .'"><a href="index.php?&page_1=1">Запросы на доп.печать <span class="badge">228</span></a></li>';
+			echo '<li role="presentation" class="' . ($_SESSION['page_1'] == 2 ? "active" : "") .'"><a href="index.php?&page_1=2">Результаты поиска</a></li>';
+			echo '</ul>';
+
+			include($sFile . ".php");
 		?>
     </div>
 </div>

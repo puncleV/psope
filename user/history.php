@@ -3,16 +3,28 @@
 		<thead>
 			<td>Документ</td>
 			<td>Время печати</td>
-			<td>Количество страниц</td>
+			<td>Размер файла</td>
 			<td>Статус</td>
 		</thead>
 		<tbody>
-			<tr>
-				<td>ЦП</td>
-				<td>24:00</td>
-				<td>777</td>
-				<td>Ожидает</td>
-			</tr>
+		<?php
+			$result = mysqli_query($idb, "SELECT * FROM `prints` WHERE `user_id` = '".$_SESSION['id']."'");
+		 	if( $result->num_rows ){
+		 		$rows = $result->fetch_all();
+		 		foreach ($rows as $oRow) {
+	 				$fileInfo = mysqli_query($idb, "SELECT * FROM `files` WHERE `file_id` = '".$oRow[4]."'");
+					$fileRow = $fileInfo->fetch_row();
+					echo "<tr>";
+					echo "<td>" . $fileRow[1] . "</td>";
+					echo "<td>" . $oRow[2] . "</td>";
+					echo "<td>" . $fileRow[3] . "</td>";
+					echo "<td>" . ( $oRow[3] == NULL ? "В ожидании" : "Распечатан") . "</td>";
+					echo "</tr>";
+		 		}
+		 	}else{
+				echo "<p>Нет загруженных файлов</p>";
+			}
+		?>
 		</tbody>
 	</table>
 	<nav>
