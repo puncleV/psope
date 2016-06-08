@@ -17,9 +17,10 @@
 		if (isset($_POST['login'], $_POST['password'])) {
 				$result = mysqli_query($idb, "SELECT * FROM `users` WHERE `login` = '".$_POST['login']."' AND `password` = '".$_POST['password']."'");
 			    if ($result->num_rows){
-			    	$_SESSION['id'] = $result->fetch_row()[0];
-			    	$_SESSION['fullName'] = $result->fetch_row()[1];
-			    	$_SESSION['group'] = $result->fetch_row()[0] == 1 ? "admin" : "user";
+			    	$row = $result->fetch_row();
+			    	$_SESSION['id'] = $row [0];
+			    	$_SESSION['fullName'] = $row [1];
+			    	$_SESSION['group'] = $row [2] == 1 ? "admin" : "user";
 			    }else{
 			     	errMsg("Пароль или адрес неверны");
 			    }
@@ -27,7 +28,7 @@
 			session_destroy();
 			header( 'Location: index.php', true, 301 );
 		}
-		
+
 		if(isset($_SESSION['group'])){
 			echo '<form target="index.php" method="POST">';
 			echo '<div class="form-group">';
