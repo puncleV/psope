@@ -13,7 +13,13 @@
 <div class="panel-body">
 	<?php
 		include("connect.php");
-		if(isset($_SESSION['group'])){
+		if(isset($_SESSION['group']) && !isset($_POST['logout'])){
+			echo '<form target="index.php" method="POST">';
+			echo '<div class="form-group">';
+			echo '<input id="aboutInput" type="hidden" class="form-control" name="logout" value="logout"></input>';
+			echo '</div>';
+			echo '<button type="submit" class="btn btn-default">Выйти</button>';
+			echo '</form>';
 			include(  $_SESSION["group"] . "/" . $_SESSION["group"] . ".php");
 		}else{
 			include("login.php");
