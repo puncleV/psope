@@ -3,19 +3,19 @@
     <div class="panel-body">
         <div class="row">
 		 	<div class="col-lg-6">
-				<form>
+				<form method="POST" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="aboutInput">Описание документа</label>
-						<textarea id="aboutInput" class="form-control" rows="3" required></textarea>
+						<textarea id="aboutInput" class="form-control" rows="3" required name="aboutFile"></textarea>
 					</div>
 					<div class="form-group">
 						<label for="dateInput">Время печати:</label>
-						<input type="datetime-local" id="dateInput" required="true">
+						<input type="datetime-local" id="dateInput" required="true" name="dateTime">
 						<p class="help-block">Выберите предпочитаемое время для печати.</p>
 					</div>
 					<div class="form-group">
 						<label for="fileInput">Файл для печати</label>
-						<input type="file" id="fileInput" required="true">
+						<input type="file" id="fileInput" required="true" name="fileName">
 						<p class="help-block">Поддерживаемые форматы: ыы ы ы </p>
 					</div>
 					<button type="submit" class="btn btn-default">Загрузить</button>
