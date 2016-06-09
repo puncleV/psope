@@ -14,12 +14,23 @@
 			
 			$uploadfile = $uploaddir .  $_SESSION['id'] . "_" . $fileId . "_" . basename($_FILES['fileName']['name']);
 			
+			if(move_uploaded_file($_FILES["fileName"]["tmp_name"], $uploadfile)){
+				exec("DIR=$uploaddir unoconv -f pdf '$uploadfile'");
+				exec("DIR=$uploaddir rm '$uploadfile'");
+				$fileName = substr(basename($_FILES['fileName']['name']), 0, strrpos(basename($_FILES['fileName']['name']), ".")) . ".pdf";
 
-			$insertFile = mysqli_query($idb, "INSERT INTO `files` (file_type, file_name, size, path, description) VALUES ('".$_FILES["fileName"]["type"]."','".$_FILES['fileName']['name']."','".$_FILES["fileName"]["size"]."','".$uploadfile."','".$_POST["fileDescription"]."')");
+				$f = fopen(  $uploaddir . $_SESSION['id'] . "_" . $fileId . "_" . $fileName, "r");
+				while(!feof($f)) {
+				  $line = fgets($f,255);
+				  if (preg_match('/\/Count [0-9]+/', $line, $matches)){
+				    preg_match('/[0-9]+/',$matches[0], $matches2);
+				    if ($count<$matches2[0]) $count=$matches2[0]; 
+				  } 
+				}
+				fclose($f);
 
-			$insertPrint = mysqli_query($idb, "INSERT INTO `prints` (user_id, desired_time, file_id) VALUES ('".$_SESSION['id']."','".$_POST["dateTime"]."','".$fileId."')");
-
-		 	if(move_uploaded_file($_FILES["fileName"]["tmp_name"], $uploadfile)){
+				$insertFile = mysqli_query($idb, "INSERT INTO `files` (file_type, file_name, page_count, path, description) VALUES ('".$_FILES["fileName"]["type"]."','".$fileName."','".$count."','".$uploadfile."','".$_POST["fileDescription"]."')");
+				$insertPrint = mysqli_query($idb, "INSERT INTO `prints` (user_id, desired_time, file_id) VALUES ('".$_SESSION['id']."','".$_POST["dateTime"]."','".$fileId."')");
 		 		gracMsg("Файл успешно загружен");
 		 	}
 		 	else{
