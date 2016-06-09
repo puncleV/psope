@@ -18,7 +18,7 @@
 					echo "<td>" . $fileRow[1] . "</td>";
 					echo "<td>" . $oRow[2] . "</td>";
 					echo "<td>" . $fileRow[3] . "</td>";
-					echo "<td>" . ( $oRow[3] == NULL ? "В ожидании" : "Распечатан") . "</td>";
+					echo "<td>" . ( $oRow[3] == NULL ? "<form method='POST'><input type='hidden' name='printme' value=" . $fileRow[0] . "><input type='submit' value='Печать'></form>" : "Распечатан") . "</td>";
 					echo "</tr>";
 		 		}
 		 	}else{
