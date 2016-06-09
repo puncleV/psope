@@ -15,7 +15,7 @@
 					</div>
 					<div class="form-group">
 						<label for="fileInput">Файл для печати</label>
-						<input type="file" id="fileInput" accept="application/msword, application/vnd.oasis.opendocument.text, text/richtext, application/pdf" required="true" name="fileName">
+						<input type="file" id="fileInput" accept="application/msword,application/vnd.oasis.opendocument.text,text/richtext,application/pdf" required="true" name="fileName">
 						<p class="help-block">Поддерживаемые форматы: pdf, rtf, odt, doc[x] </p>
 					</div>
 					<button type="submit" class="btn btn-default">Загрузить</button>

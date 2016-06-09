@@ -40,10 +40,10 @@
 		}
 	}
 	if(isset($_POST['printme'])){
-		var_dump($_POST['printme']);
 		$fileInfo = mysqli_query($idb, "SELECT * FROM `files` WHERE `file_id`='" . $_POST['printme'] . "'");
-		var_dump($fileInfo->fetch_row());
-		exec("DIR=$uploaddir lp " . $fileInfo[4]);
+		//var_dump($fileInfo->fetch_row());
+		$filePath = $fileInfo->fetch_row()[4];
+		exec("nohup lp -U dart " . $filePath . " &");
 	}
 	include("download.php");
 	include("misc.php");
