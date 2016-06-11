@@ -28,5 +28,14 @@
                       </div>
                       ';
   }
+  function printPaginator($pagesCount, $currentPage){
+    echo '<ul class="pagination">
+            <li class="' . ((isset($_GET['pag']) && $_GET['pag'] == 1|| !isset($_GET['pag'])) ? "disabled" : "" ). '"><a href="?pag=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+    for ($i=1; $i <= $pagesCount; $i++) { 
+      echo '<li class="' . ((isset($_GET['pag']) && $_GET['pag'] == $i || !isset($_GET['pag']) && $i ==1) ? "active" : "" ). '"><a href="?pag=' . $i . '">' . $i . '</a></li>';
+    }
+    echo '<li class="' . ((isset($_GET['pag']) && $_GET['pag'] == $pagesCount) ? "disabled" : "" ). '"><a href="?pag='.$pagesCount.'" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+        </ul>';
+  }
 	session_start();
 ?>

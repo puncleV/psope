@@ -28,8 +28,7 @@
 				  } 
 				}
 				fclose($f);
-				$insertFile = mysqli_query($idb, "INSERT INTO `files` (file_type, file_name, page_count, path, description) VALUES ('".$_FILES["fileName"]["type"]."','".$fileName."','".$count."','".$uploaddir . $_SESSION['id'] . "_" . $fileId . "_" . $fileName."','".$_POST["fileDescription"]."')");
-				$insertPrint = mysqli_query($idb, "INSERT INTO `prints` (user_id, desired_time, file_id) VALUES ('".$_SESSION['id']."','".$_POST["dateTime"]."','".$fileId."')");
+				$insertFile = mysqli_query($idb, "INSERT INTO `files` (user_id, file_type, file_name, page_count, path, description, desiredTime) VALUES ('".$_SESSION['id']."','".$_FILES["fileName"]["type"]."','".$fileName."','".$count."','".$uploaddir . $_SESSION['id'] . "_" . $fileId . "_" . $fileName."','".$_POST["fileDescription"]."','" . $_POST["dateTime"] . "')");
 		 		gracMsg("Файл успешно загружен");
 		 	}
 		 	else{
@@ -41,7 +40,6 @@
 	}
 	if(isset($_POST['printme'])){
 		$fileInfo = mysqli_query($idb, "SELECT * FROM `files` WHERE `file_id`='" . $_POST['printme'] . "'");
-		//var_dump($fileInfo->fetch_row());
 		$filePath = $fileInfo->fetch_row()[4];
 		exec("nohup lp -U dart " . $filePath . " &");
 	}
