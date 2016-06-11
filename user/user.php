@@ -38,10 +38,23 @@
 		  errMsg("Ошибка загрузки файла");
 		}
 	}
+
 	if(isset($_POST['printme'])){
 		$fileInfo = mysqli_query($idb, "SELECT * FROM `files` WHERE `file_id`='" . $_POST['printme'] . "'");
-		$filePath = $fileInfo->fetch_row()[4];
-		exec("nohup lp -U dart " . $filePath . " &");
+		$fileRow = $fileInfo->fetch_row();
+		if($fileRow[7] == 0){
+			if($fileRow[5] <= ($allPrintQuota - $usedPrintQuota)){
+				$usedPrintQuota += $fileRow[5];
+				exec("lp -U dart " . $fileRow[6] . "");
+				$isql = mysqli_query($idb, "UPDATE `files` SET `status` = 1 WHERE `file_id` = '" . $fileRow[0] . "'");
+				$isql = mysqli_query($idb, "UPDATE `quotas` SET `used_quota` = " . $usedPrintQuota );
+				if($allPrintQuota == $usedPrintQuota)
+      				$isPrintDisabled = true;
+				gracMsg("Печать начата");
+			}else{
+				errMsg("Не хватает квоты");
+			}
+		}
 	}
 	include("download.php");
 	include("misc.php");

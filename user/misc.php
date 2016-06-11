@@ -11,7 +11,7 @@
 			}
 			echo '<ul class="nav nav-tabs">';
 			echo	'<li role="presentation" class="' . ($_SESSION['page'] == 0 ? "active" : "") .'"><a href="index.php?&page=0">История печати</a></li>';
-			echo	'<li role="presentation" class="' . ($_SESSION['page'] == 1 ? "active" : "") .'"><a href="index.php?&page=1">Квоты <span class="label label-danger">Не осталось</span></a></li>';
+			echo	'<li role="presentation" class="' . ($_SESSION['page'] == 1 ? "active" : "") .'"><a href="index.php?&page=1">Квоты <span class="label ' . ($isPrintDisabled ? "label-danger" : "label-info") . '">' . ($isPrintDisabled ? "Не осталось" : $allPrintQuota - $usedPrintQuota ). '</span></a></li>';
 			echo '</ul>';
 
 			include($sFile . ".php");
