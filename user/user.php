@@ -67,7 +67,7 @@
 				$usedPrintQuota += $fileRow[5];
 				exec("lp -U $printerUsername " . $fileRow[6]);
 				$isql = mysqli_query($idb, "UPDATE `files` SET `status` = 1, `fact_time` = CURRENT_TIMESTAMP WHERE `file_id` = '" . $fileRow[0] . "'");
-				$isql = mysqli_query($idb, "UPDATE `quotas` SET `used_quota` = " . $usedPrintQuota );
+				$isql = mysqli_query($idb, "UPDATE `quotas` SET `used_quota` = " . $usedPrintQuota . ", `all_quota` = `all_quota` + " . $fileRow[5]);
 				if($allPrintQuota == $usedPrintQuota)
       				$isPrintDisabled = true;
 				gracMsg("Печать начата");

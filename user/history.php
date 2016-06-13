@@ -3,6 +3,7 @@
 		<thead>
 			<td>Документ</td>
 			<td>Желаемое время печати</td>
+			<td>Описание</td>
 			<td>Количество страниц</td>
 			<td>Статус</td>
 		</thead>
@@ -20,6 +21,7 @@
 					echo "<tr>";
 					echo "<td>" . $oRow[2] . "</td>";
 					echo "<td>" . $oRow[4] . "</td>";
+					echo "<td>" . $oRow[8] . "</td>";					
 					echo "<td>" . $oRow[5] . "</td>";
 					if(!$isPrintDisabled){
 						echo "<td>" . ( $oRow[7] == 0 ? "<form method='POST'><input type='hidden' name='printme' value=" . $oRow[0] . "><input type='submit' value='Печать'></form>" : "Распечатан") . "</td>";

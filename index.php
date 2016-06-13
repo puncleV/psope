@@ -28,12 +28,13 @@
 		}elseif (isset($_POST['logout'])) {
 			session_destroy();
 			header( 'Location: index.php', true, 301 );
+			exit;
 		}
 
 		if(isset($_SESSION['group'])){
-			echo '<form target="index.php" method="POST">';
+			echo '<form method="POST">';
 			echo '<div class="form-group">';
-			echo '<input id="aboutInput" type="hidden" class="form-control" name="logout" value="logout"></input>';
+			echo '<input type="hidden" class="form-control" name="logout" value="logout"></input>';
 			echo '</div>';
 			echo '<button type="submit" class="btn btn-default">Выйти</button>';
 			echo '</form>';

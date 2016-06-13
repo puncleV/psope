@@ -11,9 +11,9 @@
 				case 1:
 					$sFile = "group";
 					break;
-				case 2:
-					$sFile = "story";
-					break;
+				// case 2:
+				// 	$sFile = "story";
+				// 	break;
 				default:
 					$sFile = "user";
 					break;
@@ -21,7 +21,7 @@
 			echo '<ul class="nav nav-tabs">';
 			echo '<li role="presentation" class="' . ($_SESSION['page'] == 0 ? "active" : "") .'"><a href="index.php?&page=0">Поиск по имени</a></li>';
 			echo '<li role="presentation" class="' . ($_SESSION['page'] == 1 ? "active" : "") .'"><a href="index.php?&page=1">Поиск по группе</a></li>';
-			echo '<li role="presentation" class="' . ($_SESSION['page'] == 2 ? "active" : "") .'"><a href="index.php?&page=2">Поиск по истории</a></li>';
+			// echo '<li role="presentation" class="' . ($_SESSION['page'] == 2 ? "active" : "") .'"><a href="index.php?&page=2">Поиск по истории</a></li>';
 			echo '</ul>';
 
 			include($sFile . ".php");
