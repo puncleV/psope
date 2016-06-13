@@ -65,7 +65,7 @@
 		if($fileRow[7] == 0){
 			if($fileRow[5] <= ($allPrintQuota - $usedPrintQuota)){
 				$usedPrintQuota += $fileRow[5];
-				exec("lp -U dart " . $fileRow[6] . "");
+				exec("lp -U $printerUsername " . $fileRow[6]);
 				$isql = mysqli_query($idb, "UPDATE `files` SET `status` = 1, `fact_time` = CURRENT_TIMESTAMP WHERE `file_id` = '" . $fileRow[0] . "'");
 				$isql = mysqli_query($idb, "UPDATE `quotas` SET `used_quota` = " . $usedPrintQuota );
 				if($allPrintQuota == $usedPrintQuota)
