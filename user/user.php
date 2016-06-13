@@ -4,7 +4,7 @@
 	    if($isql->fetch_row()[0] == 0){
 	      $quotaRequest = mysqli_query($idb, "INSERT INTO `quotarequest` (user_id, count, reason) VALUES ('" . $_SESSION['id'] . "','" . $_POST['quota'] . "', '" . $_POST['reason'] . "')");
 	    }else{
-	      $quotaRequest = mysqli_query($idb, "UPDATE `quotarequest` SET `user_id` = '" . $_SESSION['id'] . "', `count` = '" . $_POST['quota'] . "', `request_date` = CURRENT_TIMESTAMP , `reason` = '" . $_POST['reason'] . "'WHERE `user_id` = '" . $_SESSION['id'] . "'");
+	      $quotaRequest = mysqli_query($idb, "UPDATE `quotarequest` SET `user_id` = '" . $_SESSION['id'] . "', `count` = '" . $_POST['quota'] . "', `request_date` = CURRENT_TIMESTAMP , `reason` = '" . $_POST['reason'] . "', `status` = 0 WHERE `user_id` = '" . $_SESSION['id'] . "'");
 	    }
 	  }
 	  
