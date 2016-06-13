@@ -33,9 +33,9 @@
 					$isql = mysqli_query($idb, "SELECT `full_name` FROM `users` WHERE `user_id` = " . $_SESSION['usearch']);
 				}
 				$searchName = $isql->fetch_row()[0];
-				echo '<li role="presentation" class="' . ($_SESSION['page_1'] == 2 ? "active" : "") .'"><a href="index.php?&page_1=2">Результаты поиска <span class="label label-info">' . $searchName . '</span></a></li>';
+				echo '<li role="presentation" class="' . ($_SESSION['page_1'] == 2 ? "active" : "") .'"><a href="index.php?&page_1=2">Информация о квотах <span class="label label-info">' . $searchName . '</span></a></li>';
 			}else{
-				echo '<li role="presentation" class="' . ($_SESSION['page_1'] == 2 ? "active" : "") .'"><a href="index.php?&page_1=2">Результаты поиска</a></li>';
+				echo '<li role="presentation" class="' . ($_SESSION['page_1'] == 2 ? "active" : "") .'"><a href="index.php?&page_1=2">Информация о квотах</a></li>';
 			}
 			echo '<li role="presentation" class="' . ($_SESSION['page_1'] == 3 ? "active" : "") .'"><a href="index.php?&page_1=3">Квоты</a></li>';
 			echo '</ul>';
