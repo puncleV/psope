@@ -6,7 +6,8 @@
 		Запрошено: <?php echo $requestedQuota ? $requestedQuota : "0"; ?> </p>
 		<form class="navbar-form navbar-left" method="POST">
 		<div class="form-group">
-			<input type="text" class="form-control" placeholder="Дополнительные квоты" name="quota">
+			<input type="text" class="form-control" placeholder="Дополнительные квоты" name="quota" required="true">
+			<input type="text" class="form-control" placeholder="Причина" name="reason" required="true">
 		</div>
 		<button type="submit" class="btn btn-default">Запросить</button>
 	</form>

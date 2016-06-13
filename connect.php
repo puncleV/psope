@@ -1,8 +1,5 @@
  <?php
-  $dbhost = "localhost"; // Имя хоста БД
-  $dbusername = "root"; // Пользователь БД
-  $dbpass = "1734"; // Пароль к базе
-  
+  include("config.php");  
   /* Подключение к серверу MySQL */ 
   $idb = mysqli_connect( 
               $dbhost,  /* Хост, к которому мы подключаемся */ 
@@ -38,26 +35,4 @@
         </ul>';
   }
 	session_start();
-  if(isset($_POST['quota'])){
-    $isql = mysqli_query($idb, "SELECT COUNT(*) FROM `quotarequest` WHERE `user_id` = '" . $_SESSION['id'] . "'");
-    if($isql->fetch_row()[0] == 0){
-      $quotaRequest = mysqli_query($idb, "INSERT INTO `quotarequest` (user_id, count) VALUES ('" . $_SESSION['id'] . "','" . $_POST['quota'] . "')");
-    }else{
-      $quotaRequest = mysqli_query($idb, "UPDATE `quotarequest` SET `user_id` = '" . $_SESSION['id'] . "', `count` = '" . $_POST['quota'] . "', `request_date` = CURRENT_TIMESTAMP WHERE `user_id` = '" . $_SESSION['id'] . "'");
-    }
-    echo mysqli_error($idb);
-    var_dump($quotaRequest);
-  }
-  
-  if(isset($_SESSION['id'])){
-    $isql = mysqli_query($idb, "SELECT * FROM `quotas` WHERE `user_id`='" . $_SESSION['id'] . "'");
-    $quotaRow = $isql->fetch_row();
-    $allPrintQuota = $quotaRow[1];
-    $usedPrintQuota = $quotaRow[2];
-    if($allPrintQuota == $usedPrintQuota)
-      $isPrintDisabled = true;
-    $requestedQuotas = mysqli_query($idb, "SELECT * FROM `quotarequest` WHERE `user_id`='" . $_SESSION['id'] . "'");
-    $requestRow = $requestedQuotas->fetch_row();
-    $requestedQuota = $requestRow[2];
-  }
 ?>

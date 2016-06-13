@@ -1,7 +1,27 @@
 <?php
+	  if(isset($_POST['quota'])){
+	    $isql = mysqli_query($idb, "SELECT COUNT(*) FROM `quotarequest` WHERE `user_id` = '" . $_SESSION['id'] . "'");
+	    if($isql->fetch_row()[0] == 0){
+	      $quotaRequest = mysqli_query($idb, "INSERT INTO `quotarequest` (user_id, count, reason) VALUES ('" . $_SESSION['id'] . "','" . $_POST['quota'] . "', '" . $_POST['reason'] . "')");
+	    }else{
+	      $quotaRequest = mysqli_query($idb, "UPDATE `quotarequest` SET `user_id` = '" . $_SESSION['id'] . "', `count` = '" . $_POST['quota'] . "', `request_date` = CURRENT_TIMESTAMP , `reason` = '" . $_POST['reason'] . "'WHERE `user_id` = '" . $_SESSION['id'] . "'");
+	    }
+	  }
+	  
+	  if(isset($_SESSION['id'])){
+	    $isql = mysqli_query($idb, "SELECT * FROM `quotas` WHERE `user_id`='" . $_SESSION['id'] . "'");
+	    $quotaRow = $isql->fetch_row();
+	    $allPrintQuota = $quotaRow[1];
+	    $usedPrintQuota = $quotaRow[2];
+	    if($allPrintQuota == $usedPrintQuota)
+	      $isPrintDisabled = true;
+	    $requestedQuotas = mysqli_query($idb, "SELECT * FROM `quotarequest` WHERE `user_id`='" . $_SESSION['id'] . "'");
+	    $requestRow = $requestedQuotas->fetch_row();
+	    $requestedQuota = $requestRow[2];
+	  }
    // Проверяем загружен ли файл
 	if(isset($_FILES["fileName"])){
-		$uploaddir = '/var/www/html/psope/files/';
+		$uploaddir = $uploadDirPath;
 
 		if(is_uploaded_file($_FILES["fileName"]["tmp_name"]))
 		{
