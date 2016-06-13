@@ -28,7 +28,11 @@
 				unset($_SESSION['searchgroup']);
 			}
 			if(isset($_SESSION['searchgroup'])){
-				$isql = mysqli_query($idb, "SELECT * FROM `groups` WHERE LOWER(`group_name`) REGEXP \"" . strtolower($_SESSION['searchgroup']) . "\"");
+				if($_SESSION['searchgroup'] == ""){
+					$isql = mysqli_query($idb, "SELECT * FROM `groups` WHERE `group_id` != 1");
+				}else{
+					$isql = mysqli_query($idb, "SELECT * FROM `groups` WHERE LOWER(`group_name`) REGEXP \"" . strtolower($_SESSION['searchgroup']) . "\" AND `group_id` != 1");
+				}
 				$rows = $isql->fetch_all();
 				echo "<table class='table table-striped'>
 						<thead>
@@ -48,7 +52,11 @@
 					</table>
 				";
 			}elseif(isset($_SESSION['searchname'])){
-				$isql = mysqli_query($idb, "SELECT * FROM `users` WHERE LOWER(`full_name`) REGEXP \"" . strtolower($_SESSION['searchname']) . "\"");
+				if($_SESSION['searchgroup'] == ""){
+					$isql = mysqli_query($idb, "SELECT * FROM `users` WHERE `group_id` != 1");
+				}else{
+					$isql = mysqli_query($idb, "SELECT * FROM `users` WHERE LOWER(`full_name`) REGEXP \"" . strtolower($_SESSION['searchname']) . "\" AND `group_id` != 1");
+				}
 				echo mysqli_error($idb);
 				$rows = $isql->fetch_all();
 				echo "<table class='table table-striped'>
