@@ -15,7 +15,7 @@
 				}else{
 					$page = 0;
 				}
-				$result = mysqli_query($idb, "SELECT * FROM `quotarequest` ORDER BY `approved`, `request_date` LIMIT " . $page * 10 . "," . 10);
+				$result = mysqli_query($idb, "SELECT * FROM `quotarequest` ORDER BY `approved`, `request_date` LIMIT " . $page * $ROWSBYPAGE . "," . $ROWSBYPAGE);
 			 	if( $result->num_rows ){
 			 		$rows = $result->fetch_all();
 			 		foreach ($rows as $oRow) {
@@ -48,9 +48,9 @@
 	<nav>
 		<?php
 			$countRequest = mysqli_query($idb, "SELECT COUNT(*) FROM `quotarequest` ");
-			$requestsQuant = $countRequest->fetch_row()[0];
-			if( $requestsQuant > 10){
-				$pagesCount = ceil($requestsQuant / 10);
+			$rowsQuant = $countRequest->fetch_row()[0];
+			if( $rowsQuant > $ROWSBYPAGE){
+				$pagesCount = ceil($rowsQuant / $ROWSBYPAGE);
 				printPaginator($pagesCount, $currentPage);
 			}
 		?>

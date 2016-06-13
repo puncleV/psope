@@ -14,7 +14,7 @@
 			}else{
 				$page = 0;
 			}
-			$result = mysqli_query($idb, "SELECT * FROM `files` WHERE `user_id` = '".$_SESSION['id']."' LIMIT " . $page * 10 . "," . 10);
+			$result = mysqli_query($idb, "SELECT * FROM `files` WHERE `user_id` = '".$_SESSION['id']."' LIMIT " . $page * $ROWSBYPAGE . "," . $ROWSBYPAGE);
 		 	if( $result->num_rows ){
 		 		$rows = $result->fetch_all();
 		 		foreach ($rows as $oRow) {
@@ -39,9 +39,9 @@
 	<nav>
 		<?php
 			$countRequest = mysqli_query($idb, "SELECT COUNT(*) FROM `files` WHERE `user_id` = '" . $_SESSION['id'] . "'");
-			$filesCount = $countRequest->fetch_row()[0];
-			if( $filesCount > 10){
-				$pagesCount = ceil($filesCount / 10);
+			$rowsQuant = $countRequest->fetch_row()[0];
+			if( $rowsQuant > $ROWSBYPAGE){
+				$pagesCount = ceil($rowsQuant / $ROWSBYPAGE);
 				printPaginator($pagesCount, $currentPage);
 			}
 		?>

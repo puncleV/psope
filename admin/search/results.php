@@ -41,7 +41,7 @@
 					$countRequest = mysqli_query($idb, "SELECT COUNT(*) FROM `files` WHERE `user_id` = " . $_SESSION['usearch']);
 					$isql = mysqli_query($idb, "SELECT `group_name` FROM `groups` WHERE `group_id` = " . $userInfo[2] );
 		 			$groupName = $isql->fetch_row()[0];
-					$isql = mysqli_query($idb, "SELECT * FROM `files` WHERE `user_id` = " . $_SESSION['usearch'] . " LIMIT " . $page * 10 . "," . 10);
+					$isql = mysqli_query($idb, "SELECT * FROM `files` WHERE `user_id` = " . $_SESSION['usearch'] . " LIMIT " . $page * $ROWSBYPAGE . "," . $ROWSBYPAGE);
 					if( $isql->num_rows ){
 				 		$rows = $isql->fetch_all();
 				 		foreach ($rows as $oRow) {
@@ -87,7 +87,8 @@
 					}else{
 						$page = 0;
 					}
-					$isql = mysqli_query($idb, "SELECT * FROM `users` WHERE `group_id` = " . $_SESSION['gsearch']);
+					$isql = mysqli_query($idb, "SELECT * FROM `users` WHERE `group_id` = " . $_SESSION['gsearch'] . " LIMIT " . $page * $ROWSBYPAGE . "," . $ROWSBYPAGE);
+					$countRequest = mysqli_query($idb, "SELECT COUNT(*) FROM `users` WHERE `group_id` = " . $_SESSION['gsearch']);
 					$usersInfo = $isql->fetch_all();
 					foreach ($usersInfo as $userRow) {
 						$isql = mysqli_query($idb, "SELECT * FROM `quotas` WHERE `user_id` = " . $userRow[0]);
@@ -98,21 +99,6 @@
 						echo "<td>" . $userQuota[3] . "</td>";
 						echo "</tr>";
 			 		}
-					// $isql = mysqli_query($idb, "SELECT * FROM `files` WHERE `user_id` = " . $_SESSION['usearch'] . " LIMIT " . $page * 10 . "," . 10);
-					// if( $isql->num_rows ){
-				 // 		$rows = $isql->fetch_all();
-				 // 		foreach ($rows as $oRow) {
-					// 		echo "<tr>";
-					// 		echo "<td>" . $userInfo[1] . "</a></td>";
-					// 		echo "<td>" . $userInfo[5] . "</a></td>";
-					// 		echo "<td>" . $oRow[2] . "</td>";
-					// 		echo "<td>" . $oRow[9] . "</td>";
-					// 		echo "<td>" . $oRow[5] . "</td>";
-					// 		echo "</tr>";
-				 // 		}
-				 // 	}else{
-					// 	echo "<p>Нет загруженных файлов</p>";
-					// }
 				}
 				echo '</tbody>
 					</table>';
@@ -124,8 +110,8 @@
 	<nav>
 		<?php
 			$rowsQuant = $countRequest->fetch_row()[0];
-			if( $rowsQuant > 10){
-				$pagesCount = ceil($rowsQuant / 10);
+			if( $rowsQuant > $ROWSBYPAGE){
+				$pagesCount = ceil($rowsQuant / $ROWSBYPAGE);
 				printPaginator($pagesCount, $currentPage);
 			}
 		?>
