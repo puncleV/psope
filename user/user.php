@@ -6,6 +6,7 @@
 	    }else{
 	      $quotaRequest = mysqli_query($idb, "UPDATE `quotarequest` SET `user_id` = '" . $_SESSION['id'] . "', `count` = '" . $_POST['quota'] . "', `request_date` = CURRENT_TIMESTAMP , `reason` = '" . $_POST['reason'] . "', `approved` = 0 WHERE `user_id` = '" . $_SESSION['id'] . "'");
 	    }
+	    exec("echo 'Прошу предоставить мне дополнительные квоты в размере: " . $_POST['quota'] . "' | mail -t $adminMail -s 'Принята заявка на дополнительные квоты от пользователя " . $_SESSION['fullName'] . "'");
 	  }
 	  
 	  if(isset($_SESSION['id'])){
