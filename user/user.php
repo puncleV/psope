@@ -18,7 +18,11 @@
 	      $isPrintDisabled = true;
 	    $requestedQuotas = mysqli_query($idb, "SELECT * FROM `quotarequest` WHERE `user_id`='" . $_SESSION['id'] . "'");
 	    $requestRow = $requestedQuotas->fetch_row();
-	    $requestedQuota = $requestRow[2];
+	    if($requestRow[4] == 2){
+	    	$requestedQuota = "Отклонено";
+	    }else{
+	    	$requestedQuota = $requestRow[2];
+	    }
 	  }
    // Проверяем загружен ли файл
 	if(isset($_FILES["fileName"])){

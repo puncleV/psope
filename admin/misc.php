@@ -17,6 +17,9 @@
 				case 3:
 					$sFile = "quotas";
 					break;
+				case 4:
+					$sFile = "prints";
+					break;
 				default:
 					$sFile = "history";
 					break;
@@ -38,8 +41,8 @@
 				echo '<li role="presentation" class="' . ($_SESSION['page_1'] == 2 ? "active" : "") .'"><a href="index.php?&page_1=2">Информация о квотах</a></li>';
 			}
 			echo '<li role="presentation" class="' . ($_SESSION['page_1'] == 3 ? "active" : "") .'"><a href="index.php?&page_1=3">Квоты</a></li>';
+			echo '<li role="presentation" class="' . ($_SESSION['page_1'] == 4 ? "active" : "") .'"><a href="index.php?&page_1=4">Запланированные печати<span class="badge">' . $printRequests . '</span></a></li>';
 			echo '</ul>';
-
 			include($sFile . ".php");
 		?>
     </div>

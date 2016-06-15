@@ -18,6 +18,11 @@
 		$isql = mysqli_query($idb, "UPDATE `quotas` SET `used_quota` =  " . $newQuota . " WHERE `user_id` = " . $_POST['approve']);
 		$isql = mysqli_query($idb, "UPDATE `quotarequest` SET `approved` = 1 WHERE `user_id` = '" . $_POST['approve'] . "'");
 	}
+	if(isset($_POST['decline'])){
+		$isql = mysqli_query($idb, "UPDATE `quotarequest` SET `approved` = 2, `count` = 0 WHERE `user_id` = '" . $_POST['decline'] . "'");
+	}
+	$isql = mysqli_query($idb, "SELECT SUM(`page_count`) FROM `files` WHERE `status` = 0 ");
+	$printRequests = $isql->fetch_row()[0];
 	include("search/input.php");
 	include("misc.php");
 ?>

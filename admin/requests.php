@@ -29,8 +29,9 @@
 						echo "<td>" . $oRow[1] . "</td>";
 						echo "<td>" . $oRow[3] . "</td>";
 						echo "<td>" . $oRow[2] . "</td>";
-						echo "<td>" . ( $oRow[4] == 0 ? "<form method='POST'><input type='hidden' name='approve' value=" . $userRow[0] . "><input type='hidden' name='count' value=" . $oRow[2] . "><input type='submit' value='Одобрить'></form>" : "Одобрено") . "</td>";
-						echo "</tr>";
+						echo "<td>" . ( $oRow[4] == 0 ? "<form method='POST'><input type='hidden' name='approve' value=" . $userRow[0] . "><input type='hidden' name='count' value=" . $oRow[2] . "><input type='submit' value='Одобрить'></form>" :  ($oRow[4] == 1 ? "Одобрено":  "Отклонено")) ;
+						echo ( $oRow[4] == 0 ? "<form method='POST'><input type='hidden' name='decline' value=" . $userRow[0] . "><input type='hidden' name='count' value=" . $oRow[2] . "><input type='submit' value='Отклонить'></form>" : "") ;
+						echo "</td></tr>";
 			 		}
 			 	}else{
 					echo "<p>Нет загруженных файлов</p>";
